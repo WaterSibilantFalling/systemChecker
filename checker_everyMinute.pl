@@ -172,29 +172,8 @@ sub checking_media_and_mnts {
 
 
 
-# 2. --- check that there are no /media/dirA/dirA  linkings (same dir linked inside itself)
 
-# my @checkForRecursiveMountsBaseDirs = ["/media", "/mnt"]; 
-#
-# use IO:All; 
-#
-# checking_tnt_tnt_recursively_linked_dirs() 
-# 	if (  -f "$controlFlagsDir/yes_checking_tnt_tnt_recursively_linked_dirs " ); 
-#
-# sub checking_tnt_tnt_recursively_linked_dirs {
-# 	foreach $mountDir (@checkForRecursiveMountsBaseDirs) {
-# 		my @dirs = io->dir($mountDir)->all_dirs; 
-# 		foreach my $subDir (@dirs) {
-# 			if ( -x $mountDir/$subDir/$subDir ) {
-# 				`unlink $mountDir/$subDir/$subDir `; 
-# 			}
-# 		}
-# 	}
-# } 
-
-
-
-# 3. ---  check that no mounts are mounted twice: like 2 x /media/20g_20GB
+# 2. ---  check that no mounts are mounted twice: like 2 x /media/20g_20GB
 
 # mount returns lines like this: 
 # /dev/sdb1 on /usbhd type fuseblk (rw,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096)
@@ -221,7 +200,7 @@ sub check_multiple_mounted_devices {
 
 
 
-# 4. ---  call the diskfullmonitor
+# 3. ---  call the diskfullmonitor
 
 # /dev/sda5  /tmp                      0%      1.8G     1.8G
 # /dev/sdb1  /usbhd                   90%     44.8G   465.8G
@@ -238,7 +217,7 @@ sub check_disksfull {
 	foreach my $line (@di_deviceFullness) {
 		local $" = " --- "; 
 		my @parts = split(/\s+/, $line); 
-		sip print "$line\n"; 
+		print "$line\n"; 
 		# print "@parts\n"; 
 		# print "part\[2\]:\t$parts[2]\n"; 
 		if (($parts[2] eq '98%') or ($parts[2] eq '99%') or ($parts[2] eq '100%')) {
@@ -251,7 +230,7 @@ sub check_disksfull {
 
 
 
-# 5. --- check that removeable drives' check files can be accessed, i.e mounted properly 
+# 4. --- check that removeable drives' check files can be accessed, i.e mounted properly 
 
 my $checkDirPath = ".amMountedCheckDir_dontRemove/";
 my $checkFile	= "_checkFile_dont_remove_";
@@ -298,7 +277,7 @@ sub check_removable_drives_checkFiles {
 
 
 
-# 6. --- check actually tunted devices c.f.  mount points in /media
+# 6. --- check actually mounted devices c.f.  mount points in /media
 
 check_mountedDevices_and_mountPoints( )
 if  ( -f "$controlFlagsDir/yes_check_mountedDevices_and_mountPoints" ); 
@@ -355,13 +334,6 @@ sub check_mountedDevices_and_mountPoints {
 # in /proc/partitions.  Kill these progs REGARDLESS. They DO 
 # NOT EXIST.
 #
-
-
-
-
-
-
-
 
 
 
@@ -425,100 +397,72 @@ sub check_mountedDevices_and_mountPoints {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-real devices: 
-
-me > ls -1 /sys/class/block/
-dm-0
-dm-1
-dm-2
-loop0
-loop1
-loop2
-loop3
-loop4
-loop5
-loop6
-loop7
-sda
-sda1
-sda2
-sda3
-sda5
-sdb
-sdb1
-sde
-sde1
-sde2
-sde3
-sr0
-
-sde1 to sde3 really there
-
-
-me > cat /proc/partitions
-major minor  #blocks  name
-
-   8        0   78150744 sda
-   8        1    3905536 sda1
-   8        2    1952768 sda2
-   8        3          1 sda3
-   8        5   72290304 sda5
-  11        0    1048575 sr0
- 254        0   29294592 dm-0
- 254        1   14647296 dm-1
- 254        2    4882432 dm-2
-   8       16  488386584 sdb
-   8       17  488386552 sdb1
-   8       64  244198584 sde
-   8       65    6144000 sde1
-   8       66   35862528 sde2
-   8       67  202189824 sde3
-
-sde1 to sde3 really there
-
-
-
-but
-mount: 
-
-tmpfs on /run/user/133 type tmpfs (rw,nosuid,nodev,relatime,size=205956k,mode=700,uid=133,gid=4)
-/dev/sdb1 on /media/usbhd type fuseblk (rw,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096)
-/dev/sdc2 on /media/25GB_other type fuseblk (rw,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096)
-/dev/sdc1 on /media/spare_spare_dt type fuseblk (rw,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096)
-/dev/sdc3 on /media/200GB_downloadTorrent type fuseblk (rw,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096)
-/dev/sdd on /media/iPod_rockbox type vfat (rw,noexec,relatime,lazytime,uid=1000,gid=1000,fmask=0002,dmask=0002,allow_utime=0020,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=continue)
-
-
-but sdc1 to sdc3 are mounted
-
+#
+#
+#
+# real devices: 
+#
+# me > ls -1 /sys/class/block/
+# dm-0
+# dm-1
+# dm-2
+# loop0
+# loop1
+# loop2
+# loop3
+# loop4
+# loop5
+# loop6
+# loop7
+# sda
+# sda1
+# sda2
+# sda3
+# sda5
+# sdb
+# sdb1
+# sde
+# sde1
+# sde2
+# sde3
+# sr0
+#
+# sde1 to sde3 really there
+#
+#
+# me > cat /proc/partitions
+# major minor  #blocks  name
+#
+#    8        0   78150744 sda
+#    8        1    3905536 sda1
+#    8        2    1952768 sda2
+#    8        3          1 sda3
+#    8        5   72290304 sda5
+#   11        0    1048575 sr0
+#  254        0   29294592 dm-0
+#  254        1   14647296 dm-1
+#  254        2    4882432 dm-2
+#    8       16  488386584 sdb
+#    8       17  488386552 sdb1
+#    8       64  244198584 sde
+#    8       65    6144000 sde1
+#    8       66   35862528 sde2
+#    8       67  202189824 sde3
+#
+# sde1 to sde3 really there
+#
+#
+#
+# but
+# mount: 
+#
+# tmpfs on /run/user/133 type tmpfs (rw,nosuid,nodev,relatime,size=205956k,mode=700,uid=133,gid=4)
+# /dev/sdb1 on /media/usbhd type fuseblk (rw,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096)
+# /dev/sdc2 on /media/25GB_other type fuseblk (rw,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096)
+# /dev/sdc1 on /media/spare_spare_dt type fuseblk (rw,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096)
+# /dev/sdc3 on /media/200GB_downloadTorrent type fuseblk (rw,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096)
+# /dev/sdd on /media/iPod_rockbox type vfat (rw,noexec,relatime,lazytime,uid=1000,gid=1000,fmask=0002,dmask=0002,allow_utime=0020,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=continue)
+#
+#
+# but sdc1 to sdc3 are mounted
+#
