@@ -28,25 +28,25 @@ This program runs a series of checks on the local system to ensure that
 everything is OK. Ideally it will be run every minute, or every 5 minutes, by
 cron or anacron.
 
-```
 
 **--linksFile /media/someListOfLinks.txt**
 
 A link to file listing 
-	/dir/on/remvable/media		\t		/link/to/that/dir/or/mount/point
-	/dir/on/remvable/media		\t		/link/to/that/dir/or/mount/point
-	/dir/on/remvable/media		\t		/link/to/that/dir/or/mount/point
-	/dir/on/remvable/media		\t		/link/to/that/dir/or/mount/point
+```
+	/a_dir/on/remvable/media		\t		/link/to/a_dir
+	/c_dir/on/remvable/media		\t		/link/to/c_dir
+	/c_dir/on/remvable/media		\t		/another/link/to/c_dir
+	/d_dir/on/remvable/media		\t		/link/to/dir_d
 		:										:
 
+```
 Each of these will be checked. 
 
-
-**--specificMountpoint /media/mountPoint/ **
+**--specificMountpoint /media/mountPoint/**
 
 Each mount point - that should have some device mounted on it - is checked.
 
-**--dirContainingMountpoint	/media **
+**--dirContainingMountpoint	/media**
 
 One or more directories that have mountpoints in them. 
 
