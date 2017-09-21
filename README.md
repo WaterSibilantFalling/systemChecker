@@ -28,6 +28,7 @@ This program runs a series of checks on the local system to ensure that
 everything is OK. Ideally it will be run every minute, or every 5 minutes, by
 cron or anacron.
 
+```
 
 **--linksFile /media/someListOfLinks.txt**
 
