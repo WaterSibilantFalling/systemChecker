@@ -4,14 +4,14 @@ systemChecker is a perl program that checks a collection of file system danger p
 
 systemChecker is intended to be run every minute or every 5 minutes, probably from cron or anacron. The errors it looks for should be dealt with instantly as they each represent a system corruption of one type or another.
 
-The writing of this program was driven by the harm caused from continuing to operate on a system that has undergone one of many invisible corruptions. 
+The writing of this program was driven by the harm caused from continuing to operate on a system that had undergone one of many invisible corruptions. 
 
 systemChecker is written in Perl5 using only standard libraries. 
 
 
 # Configuration
 
-Basci configuration is done on the commandline. Whether or not each test is actually done is controlled by the presence, or absence, of a \_\_do\_some\_task\_ file in /etc/systemChecker 
+Basic configuration is done on the commandline. Whether or not each test is actually done is controlled by the presence, or absence, of a \_\_do\_some\_task\_ file in /etc/systemChecker 
 
 ```
 prompt > ./checker_everyMinute.pl -h
